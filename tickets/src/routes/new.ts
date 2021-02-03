@@ -1,0 +1,39 @@
+import express, { Request, Response } from "express";
+import { body } from "express-validator";
+
+import { natsWrapper } from '../nats-wrapper';
+import { Ticket } from "../models/tickets";
+import { requireAuth, validateRequest } from "@tikity/common";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created";
+
+
+const router = express.Router();
+
+router.post("/api/tickets", requireAuth, [
+  body("title")
+    .not()
+    .isEmpty()
+    .withMessage("invalid title provided"),
+  body("price")
+    .isFloat({ gt: 0 })
+    .withMessage("price must be greater than 0")
+], validateRequest, async (req: Request, res: Response) => {
+  const { title, price } = req.body;
+  const ticket = Ticket.build({
+    title,
+    price,
+    userId: req.currentUser!.id
+  })
+  await ticket.save();
+  await new TicketCreatedPublisher(natsWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.id,
+    price: ticket.price,
+    userId: ticket.userId,
+    version: ticket.version
+  })
+  res.status(201).send(ticket);
+})
+
+
+export { router as createTicketRouter }
