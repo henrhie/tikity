@@ -48,6 +48,7 @@ const NewTicket = () => {
             onChange={(e) => {
               setPrice(e.target.value);
             }}
+            onBlur={onBlur}
           />
         </div>
         {errors}
@@ -56,3 +57,5 @@ const NewTicket = () => {
     </div>
   );
 };
+
+export default NewTicket;
