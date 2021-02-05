@@ -46,7 +46,7 @@ it('emits an OrderCancelled event', async () => {
   const { listener, order, ticket, data, msg } = await setup();
   await listener.onMessage(data, msg);
   expect(natsWrapper.client.publish).toHaveBeenCalled();
-  const eventData = JSON.parse((natsWrapper.client.publish as jest.Mock).mock.calls[0])[1];
+  const eventData = JSON.parse((natsWrapper.client.publish as jest.Mock).mock.calls[0][1]);
   expect(eventData.id).toEqual(order.id);
 })
 
