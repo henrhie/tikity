@@ -27,9 +27,9 @@ router.post('/api/payments',
     if (!order) {
       throw new NotFoundError();
     }
-    if (order.status === OrderStatus.Cancelled) {
-      throw new BadRequestError('order has exipred')
-    }
+    // if (order.status === OrderStatus.Cancelled) {
+    //   throw new BadRequestError('order has exipred')
+    // }
     if (order.userId !== req.currentUser?.id) {
       throw new NotAuthorizedError();
     }
