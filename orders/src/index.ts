@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useCreateIndex: true
 })
   .then(() => {
-    console.log("connected to db");
+    console.log("connected to mongdb");
     if (!process.env.JWT_KEY) {
       throw new Error("jwt key must be defined");
     }
