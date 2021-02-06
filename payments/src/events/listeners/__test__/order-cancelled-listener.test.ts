@@ -19,7 +19,7 @@ const setup = async () => {
 
   const data: OrderCancelledEvent['data'] = {
     id: order.id,
-    version: 1,
+    version: 0,
     ticket: {
       id: 'asldkfj',
     },
