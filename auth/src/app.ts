@@ -16,7 +16,7 @@ const PORT = 3000;
 app.set("trust proxy", true);
 app.use(bodyParser.json());
 app.use(cookieSession({
-  secure: process.env.NODE_ENV !== "test",
+  secure: false,
   signed: false
 }))
 
