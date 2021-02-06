@@ -8,6 +8,7 @@ metadata:
 spec:
   rules:
     - host: tikity-henry-production-dev.xyz
+
       http:
         paths:
           - path: /api/users/?(.*)
