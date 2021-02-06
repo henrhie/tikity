@@ -6,7 +6,7 @@ const Header = ({ currentUser }) => {
     !currentUser && { label: "sign up", href: "/auth/signup" },
     currentUser && { label: "sign out", href: "/auth/signout" },
     currentUser && { label: 'Sell tickets', href: '/tickets/new'},
-    currentUser && { label: 'My orders', href='/orders'}
+    currentUser && { label: 'My orders', href:'/orders'}
   ]
     .filter((link) => link)
     .map(({ label, href }) => {
