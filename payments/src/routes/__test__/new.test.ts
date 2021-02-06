@@ -60,7 +60,7 @@ it('returns a 400 when purchasing a cancelled order', async () => {
 
 it('returns a 201 with valid inputs', async () => {
   const userId = mongoose.Types.ObjectId().toHexString();
-  const price = Math.floor(Math.random() * 100000);
+  const price = Math.floor(Math.random() * 1000000);
   const order = Order.build({
     id: mongoose.Types.ObjectId().toHexString(),
     userId,
@@ -68,6 +68,7 @@ it('returns a 201 with valid inputs', async () => {
     price,
     status: OrderStatus.Created,
   });
+
   await order.save();
 
   await request(app)
@@ -85,10 +86,12 @@ it('returns a 201 with valid inputs', async () => {
   });
 
   expect(stripeCharge).toBeDefined();
-  expect(stripeCharge!.currency).toEqual('usd');
+  expect(stripeCharge?.currency).toEqual('usd');
+
   const payment = await Payment.findOne({
     orderId: order.id,
-    stripeId: stripeCharge?.id
-  })
-  expect(payment).not.toBeNull()
+    stripeId: stripeCharge!.id,
+  });
+
+  expect(payment).not.toBeNull();
 });
