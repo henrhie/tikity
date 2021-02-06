@@ -4,7 +4,7 @@ const buildClient = ({ req }) => {
   if (typeof window === "undefined") {
     //on server
     return axios.create({
-      baseURL: "http://ingress-nginx-controller.kube-system.svc.cluster.local",
+      baseURL: "http://tikity-henry-production-dev.xyz",
       headers: req.headers,
     });
   } else {
