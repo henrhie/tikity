@@ -32,7 +32,7 @@ natsWrapper.connect(
   })
 
 natsWrapper.client.on('close', () => {
-  console.log("NATS connection closed!!!");
+  console.log("NATS connection closed!!!!!!");
   process.exit();
 })
 process.on("SIGINT", () => natsWrapper.client.close());
