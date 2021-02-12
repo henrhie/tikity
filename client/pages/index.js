@@ -1,39 +1,45 @@
-import client from "../api/build-client";
+import Link from 'next/link';
 
-import Link from "next/link";
-
-const LandingPage = ({ currentUser, tickets }) => {
-  const ticketList = tickets.map((ticket) => {
-    <tr key={ticket.id}>
-      <td>{ticket.title}</td>
-      <td>{ticket.price}</td>
-      <td>
-        <Link href="/tickets/[ticketId" as={`/tickets/${ticket.id}`}>
-          <a>View</a>
-        </Link>
-      </td>
-    </tr>;
-  });
+const LandingPage = ({ currentUser, tickets }) =>
+{
+  const ticketList = tickets.map(ticket =>
+  {
+    return (
+      <tr key={ticket.id} >
+        <td>{ticket.title}</td>
+        <td>{ticket.price}</td>
+        <td>
+          <Link href='/tickets/[ticketId]' as={`/tickets/${ticket.id}`} >
+            <a>View</a>
+          </Link>
+        </td>
+      </tr>
+    )
+  })
 
   return (
     <div>
-      <h2>Tickets</h2>
+      <h1>Tickets List</h1>
       <table className="table">
-        <thread>
+        <thead>
           <tr>
             <th>Title</th>
             <th>Price</th>
             <th>Link</th>
           </tr>
-        </thread>
-        <tbody>{ticketList}</tbody>
+        </thead>
+        <tbody>
+          {ticketList}
+        </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-LandingPage.getInitialProps = async (ctx, client, data) => {
-  const { data } = await client.get("/api/tickets");
+LandingPage.getInitialProps = async (context, client, currentUser) =>
+{
+  const { data } = await client.get('/api/tickets');
+
   return { tickets: data };
 };
 
